@@ -52,6 +52,15 @@ const QuickMarc = ({ basePath, onClose }) => {
         marcType: MARC_TYPES.HOLDINGS,
       },
     },
+    {
+      path: `${basePath}/edit-authority/:externalId`,
+      //permission: 'ui-quick-marc.quick-marc-authority-editor.all',
+      props: {
+        action: QUICK_MARC_ACTIONS.EDIT,
+        wrapper: QuickMarcEditWrapper,
+        marcType: MARC_TYPES.AUTHORITY,
+      },
+    },
   ];
 
   return (

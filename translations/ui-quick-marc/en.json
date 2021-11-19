@@ -11,12 +11,21 @@
   "bib-record.duplicate.title": "Derive a new MARC bib record",
   "holdings-record.create.title": "Create a new MARC Holdings record",
   "holdings-record.edit.title": "Edit MARC holdings - Location: {location} - [{callNumber}]",
+  "authority-record.edit.title": "Edit MARC authority record - {title}",
 
   "record.status": "Status:",
   "record.status.new": "New",
   "record.status.current": "Current",
   "record.status.progress": "In progress",
   "record.status.error": "Error",
+
+  "record.headingType.100": "Personal name",
+  "record.headingType.110": "Corporate name",
+  "record.headingType.111": "Conference name",
+  "record.headingType.151": "Geographic name",
+  "record.headingType.130": "Uniform title",
+  "record.headingType.150": "Topical",
+  "record.headingType.155": "Genre",
 
   "record.lastUpdated": "Last updated: {date} {time}",
 
@@ -159,6 +168,9 @@
   "record.saveNew.success": "Record created.",
   "record.saveNew.error": "Unable to create record due to system error. Please try again or contact support.",
   "record.saveNew.delay": "Creating this record is taking longer than expected. Please check back later if record is available or contact support.",
+
+  "record.update.success": "Record has been updated.",
+  "record.update.error": "Record cannot be saved. {errorMsg}",
 
   "record.moveUpRow": "Move field up a row",
   "record.moveDownRow": "Move field down a row",

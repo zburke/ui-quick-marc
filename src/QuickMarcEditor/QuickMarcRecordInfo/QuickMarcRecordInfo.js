@@ -15,12 +15,15 @@ import {
 } from './constants';
 
 import styles from './QuickMarcRecordInfo.css';
+import { MARC_TYPES } from '../../common/constants';
 
 export const QuickMarcRecordInfo = ({
   isEditAction,
   status,
   updateDate,
   updatedBy,
+  marcType,
+  correspondingMarcTag,
 }) => {
   const getSourceLabel = () => {
     const source = updatedBy
@@ -43,6 +46,12 @@ export const QuickMarcRecordInfo = ({
       className={styles.quickMarcRecordInfoWrapper}
       data-test-quick-marc-record-info
     >
+      {marcType === MARC_TYPES.AUTHORITY && (
+        <>
+          <span>&nbsp;&bull;&nbsp;</span>
+          <FormattedMessage id={`ui-quick-marc.record.headingType.${correspondingMarcTag}`} />
+        </>
+      )}
       <span>
         <FormattedMessage id="ui-quick-marc.record.status" />
       </span>
@@ -67,6 +76,7 @@ export const QuickMarcRecordInfo = ({
 };
 
 QuickMarcRecordInfo.propTypes = {
+  correspondingMarcTag: PropTypes.string,
   isEditAction: PropTypes.bool.isRequired,
   status: PropTypes.string,
   updateDate: PropTypes.string,
@@ -77,5 +87,6 @@ QuickMarcRecordInfo.propTypes = {
 };
 
 QuickMarcRecordInfo.defaultProps = {
+  correspondingMarcTag: '',
   status: RECORD_STATUS_CURRENT,
 };

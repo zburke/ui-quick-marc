@@ -19,6 +19,8 @@ const READ_ONLY_ROWS_FOR_DUPLICATE = new Set([LEADER_TAG, '001', '005']);
 
 const READ_ONLY_ROWS_FOR_HOLDINGS = new Set(['001', '004', '005']);
 
+const READ_ONLY_ROWS_FOR_AUHTORITY = new Set(['001', '005']);
+
 export const isReadOnly = (
   recordRow,
   action = QUICK_MARC_ACTIONS.EDIT,
@@ -30,8 +32,10 @@ export const isReadOnly = (
     rows = action === QUICK_MARC_ACTIONS.DUPLICATE
       ? READ_ONLY_ROWS_FOR_DUPLICATE
       : READ_ONLY_ROWS;
-  } else {
+  } else if (marcType === MARC_TYPES.HOLDINGS) {
     rows = READ_ONLY_ROWS_FOR_HOLDINGS;
+  } else if (marcType === MARC_TYPES.AUTHORITY) {
+    rows = READ_ONLY_ROWS_FOR_AUHTORITY;
   }
 
   return rows.has(recordRow.tag) || isLastRecord(recordRow);
@@ -54,10 +58,18 @@ const DELETE_EXCEPTION_ROWS = new Set([LEADER_TAG, '001', '003', '005', '008']);
 
 const DELETE_EXCEPTION_ROWS_FOR_HOLDINGS = new Set([LEADER_TAG, '001', '003', '004', '005', '008']);
 
+const DELETE_EXCEPTION_ROWS_FOR_AUTHORITY = new Set([LEADER_TAG, '008']);
+
 export const hasDeleteException = (recordRow, marcType = MARC_TYPES.BIB) => {
-  const rows = marcType === MARC_TYPES.HOLDINGS
-    ? DELETE_EXCEPTION_ROWS_FOR_HOLDINGS
-    : DELETE_EXCEPTION_ROWS;
+  let rows;
+
+  if (marcType === MARC_TYPES.HOLDINGS) {
+    rows = DELETE_EXCEPTION_ROWS_FOR_HOLDINGS;
+  } else if (marcType === MARC_TYPES.AUTHORITY) {
+    rows = DELETE_EXCEPTION_ROWS_FOR_AUTHORITY;
+  } else {
+    rows = DELETE_EXCEPTION_ROWS;
+  }
 
   return rows.has(recordRow.tag) || isLastRecord(recordRow);
 };

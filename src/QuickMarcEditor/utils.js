@@ -19,6 +19,7 @@ import {
   LEADER_EDITABLE_BYTES,
   CREATE_MARC_RECORD_DEFAULT_LEADER_VALUE,
   CREATE_MARC_RECORD_DEFAULT_FIELD_TAGS,
+  CORRESPONDING_HEADING_TYPE_TAGS,
 } from './constants';
 import { RECORD_STATUS_NEW } from './QuickMarcRecordInfo/constants';
 import getMaterialCharsFieldConfig from './QuickMarcEditorRows/MaterialCharsField/getMaterialCharsFieldConfig';
@@ -526,4 +527,23 @@ export const cleanBytesFields = (formValues, initialValues, marcType) => {
     ...formValues,
     records: cleanedRecords,
   };
+};
+
+export const getCorrespondingMarcTag = (records) => {
+  const correspondingHeadingTypeTags = new Set(CORRESPONDING_HEADING_TYPE_TAGS);
+
+  return records.find(recordRow => correspondingHeadingTypeTags.has(recordRow.tag)).tag;
+};
+
+export const getContentSubfieldValue = (content) => {
+  return content.split(/\$/).reduce((acc, str) => {
+    if (!str) {
+      return acc;
+    }
+
+    return {
+      ...acc,
+      [`$${str[0]}`]: str.substring(2),
+    };
+  }, {});
 };
